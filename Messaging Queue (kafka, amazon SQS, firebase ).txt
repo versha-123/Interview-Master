@@ -1,0 +1,106 @@
+/Messaging Queue Service
+1. Appache Kafka
+2. Amazon SQS 
+3. Google firebase cloud messaging Service
+
+
+
+1. Apache Kafka 
+It is basically a distrbuted streaming platform (mesaging queue) which i sused to host a strem of incoming data
+
+//Why use Apache Kafka? 
+
+1. a distributed pub-sub messaging system that resolves N^2 relationships to N. Publishers and subscribers can operate at their own rates.
+2. super fast with zero-copy technology
+3. support fault-tolerant data persistence
+
+>>Producers publsh the messages and subscribers consumes them from intermediate brokers
+>>zookeeper si used to manage and share state of prod, sub and broker within each other.
+>>The data for a certain thing is stored in topiv and partitioned. Each partition has set of replicas.A
+
+//How to tolerate fault? 
+In-sync replica (ISR) protocol. 
+It tolerates (numReplicas - 1) dead brokers. 
+Every partition has one leader and one or more followers.
+
+Total Replicas = ISRs + out-of-sync replicas
+
+ISR is the set of replicas that are alive and have fully caught up with the leader (note that the leader is always in ISR).
+When a new message is published, 
+the leader waits until it reaches all replicas in the ISR before committing the message.
+If a follower replica fails, 
+it will be dropped out of the ISR (into out of sync replica) and 
+the leader then continues to commit new messages with fewer replicas in the ISR.
+ Notice that now, the system is running in an under replicated mode. 
+ If a leader fails, an ISR is picked to be a new leader.
+
+Out-of-sync replica keeps pulling message from the leader. 
+Once catches up with the leader, it will be added back to the ISR
+
+
+
+//Relational SQL Data
+
+
+
+News Feed 
+
+1. user post 
+2. viewers can see this.
+
+what type of user post - 
+
+
+
+
+
+
+News Feed 
+
+Sharing post
+Followee
+follower
+Text post
+
+
+Post creation
+View Feed
+
+posts
+
+
+post-service -> {userId:, postId, content}
+post-service-consumer -> Update in DB
+Auth-service ->
+
+feed-seervice -> it will serve the feed
+feed-service-consumer -> Generation feed (Redis)
+
+
+POST Creation flow:
+Authentication:
+Message queue
+
+MySql Demerits
+1. Expensive Data schema modification
+2. 
+
+MongoDB 
+
+Fetching the feed
+
+>> Whenever user onboard, if we fetch all data from db 
+Demerits: 
+issue in high scale system
+
+Alternative:
+
+Fan-out 
+
+Redis - cache system [In-memory]
+Memcache 
+
+
+DB - Hdd
+s1 s2 s3 s4 
+

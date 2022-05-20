@@ -1,0 +1,44 @@
+Intresting application of graph
+https://www.hackerrank.com/challenges/minimum-swaps-2/problem?h_l=interview&playlist_slugs%5B%5D%5B%5D=interview-preparation-kit&playlist_slugs%5B%5D%5B%5D=arrays
+
+IMP problem
+https://leetcode.com/problems/minimum-height-trees/
+
+KAHN's ALGO FOR TOPOLOGICAL SORT
+https://www.youtube.com/watch?v=tggiFvaxjrY
+https://cses.fi/problemset/result/3359051/ (IMPORTANT)
+
+Kahn can also solve (Topo sort)
+https://leetcode.com/problems/longest-increasing-path-in-a-matrix
+
+longest path in DAG
+https://cses.fi/problemset/task/1668
+
+Bipartite graph
+
+0-1 BFS is better then djikstra's
+https://www.geeksforgeeks.org/0-1-bfs-shortest-path-binary-graph/
+https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/discuss/525854/Python-Clean-0-1-BFS-with-Explanation-O(n-*-m)
+-------------------
+
+Important:
+https://leetcode.com/problems/cheapest-flights-within-k-stops/discuss/686774/SUGGESTION-FOR-BEGINNERS-BFS-or-DIJKSHTRA-or-DP
+https://www.geeksforgeeks.org/shortest-path-exactly-k-edges-directed-weighted-graph/
+-------------------------
+TOPOLOGICAL SORT CAN GIVE LONGEST PATH BETWEEN 2 NODES
+https://www.geeksforgeeks.org/find-longest-path-directed-acyclic-graph/
+
+VERY IMP PROBLEM
+https://cses.fi/problemset/task/1681/
+
+DP with graph
+https://cses.fi/problemset/task/1686/
+
+(IMPORTANT) if multiparameter djikstra is asked, focus on both variables
+https://leetcode.com/problems/minimum-cost-to-reach-destination-in-time/
+https://www.youtube.com/watch?v=vWgoPTvQ3Rw
+
+[IMPORTANT] Good variation of BFS, if multiple nodes are to be visited (USING BITMASK IN VISITED ALONG WITH NODE)
+https://leetcode.com/problems/shortest-path-visiting-all-nodes/submissions/
+
+

@@ -1,0 +1,70 @@
+nice DP video:
+https://www.youtube.com/watch?v=oBt53YbR9Kk
+
+Set of graph questions:
+https://onedrive.live.com/?authkey=%21AHSXkB1hO0WsA3Q&cid=842AECBB531CCEA4&id=842AECBB531CCEA4%218988&parId=842AECBB531CCEA4%218987&o=OneUp
+
+--------------------
+Important Concept:
+https://www.geeksforgeeks.org/minimize-cost-to-convert-given-string-into-concatenation-of-equal-substrings-of-length-k/
+
+for (int tr = 0; tr < 26; tr++)
+  cost += Math.abs(ch - tr)* a[tr];
+  
+this code of placing characters at places brings down complexity of normal intuitive way from O(N^2) to O(26*N). COOL CONCEPT. 
+ <b>applicable where array has restricted element </b>
+ 
+ -----------------
+All problems where N2 loop for subset is applicable. do think about sliding window problem to reduce it O(N)
+https://www.geeksforgeeks.org/maximize-length-of-subarray-of-equal-elements-by-performing-at-most-k-increment-operations/
+------------------------
+
+Wierd proble, using BIT to deal with range related problems(sum)
+https://leetcode.com/problems/count-of-range-sum/submissions/
+
+Find duplicates (negative number as well)
+static public List<Integer> FindDuplicates(int[] nums) {
+       //Do the recursive partition with two pointers to group duplicate numbers together
+        partition(nums, 0, nums.length - 1, 0);
+
+        //Find duplicates in the array with duplicate numbers already grouped together
+        int current = nums[0];
+        List<Integer> res = new ArrayList();
+        for(int i = 0; i < nums.length; i++){ 
+            if(i > 0 && nums[i] == nums[i-1] && current != nums[i]){
+                current = nums[i];
+                res.add(current);
+            }
+        } 
+        return res;
+    }
+    
+    
+    static void  partition (int[] nums, int start, int end, int leftShift){
+        if (leftShift > 31 || start >= end){
+            return;
+        }
+        
+        int bitMask = 1<<leftShift;
+        
+        int l = start, r = end;
+        while(l <= r){
+            while(l <= r && (nums[l] & bitMask) == 0){
+                l++;
+            }
+            while(l <= r && (nums[r] & bitMask) !=0){
+                r--;
+            }        
+            if(l<=r){
+                int temp = nums[l];
+                nums[l] =nums[r];
+                nums[r] = temp;
+                l++; 
+                r--;
+            }
+        }
+        partition(nums, start, r, leftShift + 1);
+        partition(nums, l, end, leftShift + 1);
+    } 
+    
+    

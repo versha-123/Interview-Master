@@ -1,0 +1,5 @@
+Event driven system:
+https://www.youtube.com/watch?v=FMhbR_kQeHw
+about kafka(distribute messaging system):
+https://www.youtube.com/watch?v=PzPXRmVHMxI
+its also a load balancer.

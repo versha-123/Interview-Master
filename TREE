@@ -1,0 +1,16 @@
+Important Question
+https://leetcode.com/problems/number-of-good-leaf-nodes-pairs/discuss/755763/C%2B%2B-DFS-Solution-Track-Only-Distance
+------------------------------
+binary lifiting:
+applications: finding nth ancestor
+LCA in log(n)
+https://cses.fi/problemset/task/1687
+
+Euler tour
+application: finding path, distance, LCA in O(1)
+https://www.youtube.com/watch?v=P8NHOmX5XGM
+https://cses.fi/problemset/task/1136
+https://cses.fi/problemset/task/1688
+
+Good Question:
+https://leetcode.com/problems/binary-tree-cameras/

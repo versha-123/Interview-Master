@@ -1,0 +1,23 @@
+NoSQL:
+Understand concepts and parameter of sharding
+Imp videos:
+https://www.youtube.com/watch?v=mTNkqMDCasI
+NOSQL provides general scalability through sharding
+See https://www.youtube.com/watch?v=xQnIN9bW0og thoroughly
+
+Why sharding is bad for SQL database:
+• Aggregating data: You decide to distribute sales data by region, but want to find the top sales people companywide. Because your data is sharded, your query across databases for your regions brings information back to your application, which then sorts the results.
+• Cross-shard joins (eCommerce): If you run an eCommerce business and want to pull a range of information about customers, sales, backorders, and shipping, you’ll need to add complex code to your application because sharding does not support SQL cross-shard joins.
+• ACID compliance: Relational databases such as MySQL ensure transactional integrity through ACID compliance, but that guarantee is gone — and risk is introduced — when your system is sharded and your application does all the work.
+
+Database Sharding:
+video: https://www.youtube.com/watch?v=5faMjKuB9bc
+Important to understand:
+
+Concepts of Range Key and Hash Key:
+Hash key defines shard in which data needs to go
+Range Key define sort order of data in each shard
+
+Indexing of SQL:
+B or B+ tree is used
+Article to Read: https://dzone.com/articles/database-btree-indexing-in-sqlite

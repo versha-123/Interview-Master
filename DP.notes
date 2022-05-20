@@ -1,0 +1,22 @@
+LIS(when they ask you HOW many such combinations instead of largest combination)
+https://leetcode.com/problems/arithmetic-slices-ii-subsequence/
+
+- when there is some kind of partitioning required. look for gap approach. https://gist.github.com/wszdwp/0c19b744c899c5b8db57b629cfcc5007
+
+- it helps to think in reverse sometimes. https://leetcode.com/problems/burst-balloons/
+
+- wierd problem https://leetcode.com/problems/odd-even-jump/discuss/217974/Java-solution-DP-%2B-TreeMap
+
+- DP with bitmask https://cses.fi/problemset/task/1653, https://cses.fi/problemset/task/2181
+  https://leetcode.com/discuss/general-discussion/1125779/Dynamic-programming-on-subsets-with-examples-explained
+  
+- Digit DP https://cses.fi/problemset/task/2220
+
+- when state to cover is very complex, convert all of it to string :) 
+  https://leetcode.com/submissions/detail/666625187/
+  
+ - when asked for number of way, consider multiplying number of options with last state
+ https://leetcode.com/problems/number-of-music-playlists/
+ 
+ - Subset SUm problem using BitMasking
+ https://geeksforgeeks.org/subset-sum-queries-using-bitset/

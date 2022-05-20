@@ -1,0 +1,362 @@
+import { executionAsyncId } from "async_hooks"
+import { REPL_MODE_SLOPPY } from "repl"
+
+Resource:   https://www.careercup.com/page?pid=amazon-interview-questions&job=sde-2-interview-questions
+
+
+System Design
+https://medium.com/@narengowda/uber-system-design-8b2bc95e2cfe
+https://github.com/donnemartin/system-design-primer/tree/master/solutions/system_design
+https://tianpan.co/hacking-the-software-engineer-interview/#introduction-to-architecture
+
+
+https://java-design-patterns.com/patterns/circuit-breaker/
+
+
+[9:25 AM, 7/3/2020] Geetha Amazon: HLD/LLD - Design Concepts
+Any design patterns you have used in past project?
+
+[9:25 AM, 7/3/2020] Geetha Amazon: Situations to use SQL vs NOSQL?
+
+Q. [9:25 AM, 7/3/2020] Geetha Amazon: Know about websocket connections?
+Bidirectional communication like messgaing services [need to craete a tcp connection between client and server]
+
+When there is just req - response communication like web apps, we use stateless communication
+
+[9:25 AM, 7/3/2020] Geetha Amazon: Know about Zookeeper?
+[9:25 AM, 7/3/2020] Geetha Amazon: Know about DB replication?
+[9:25 AM, 7/3/2020] Geetha Amazon: At which point of time, data are copied from master to slave? 
+How the take over happens? 
+
+
+IP blocking , Job scheduler 
+rating of b2b buisnesspartners in amazon 
+
+
+Design a parking lot 
+	• make it able to park cars, motorcycles and handicapped vehicles 
+	• motorcycles should park in moto spots (if any), or else car spots 
+	• permit vehicles can park in handicapped spots (or car spots) 
+	• tell me the classes you'd use to represent the system 
+	• write park() and retrieve() methods and tell me how they work 
+    • how do you make park() and retrieve() perform in constant-time? L
+    
+Design an algorithm to evaluate an expression tree 
+	• assume someone else has created a tree to represent (2+7)/(6*5) 
+	• what classes would you have in your evaluator? 
+	• write the eval() function 
+	• now do it polymorphically (don't use a switch/case statement) 
+    • extra credit: design system to create the expression tree 
+    
+
+Design a banking service 
+	• tell me what remote services you'd provide 
+	• design the API 
+	• design a teller machine interface 
+	• how does the teller machine communicate with the bank? 
+    • how do you make it persistent? transactional? 
+    
+Design a Zoo 
+Tell me how you'd represent the various components: 
+	• animals 
+	• cages 
+	• dietary restrictions 
+    • animal incompatibilities (who can go together) 
+    
+
+Design a chess or checkers game 
+	• how do you represent the pieces? the board? the moves? 
+	• explain how you’d detect valid/legal moves on the board 
+	• how would you make it multiplayer? 
+Extra credit: tell me how chess playing algorithms work
+
+
+Java class Diagram for Circuit Breaker 
+
+
+SDE skills - instagram design , google dive design
+
+
+Problem Statement: 
+App Nature: ClientApp[End user]  or A backend service ?
+
+Features:
+
+Functional:
+1.  Upload/download 	
+2. 
+3. 
+
+Non-Functional 
+1. User Base- 1m or 100k+ 
+
+2. Distributed or Single Node - CAP?
+
+3. Scalability - ?
+
+4. 100% Latency - ?
+
+
+
+Data model
+1. Friends/followers info-  Graph database
+2. User- Poste images
+Key-value pair data having path of images
+3. Media storage server containing actual media files  [HDFS]. can have cdn fallback aswell 
+4. Redis Cache for storing high-hit content [ Celeebrity data ]
+5. 
+
+
+
+ETL operations - Extract, transform, load 
+We need essaging queue for ETL of data from client/sever to clusters 
+pub-sub model with brokers used to partition data of a topic and zoopkeeper to maintain the metadata.
+
+
+
+
+Reational Database vs No SQL
+
+Relation / SQl DB
+
+
+Demerits
+1. Schema flexibilty
+2. highly inherently expensive join operations needed 
+3. Physical limits are there with disk/ computer 
+	Even our application supoorts 1 millionGB of data or something, our storage or write -disk can not go 
+	beyond disk persistent capacity.
+	Hence, there will be bottlenecks for that 
+
+
+But however due to ACID property and data consistency, 
+we an prefer sql and we can also dtrbute is over multiple machines using raid configurations 
+db sharding or indexing 
+
+But when our application scales to a high level 
+We move to No sql for performance and scalability 
+
+
+
+
+
+
+[9:26 AM, 7/22/2020] Geetha Amazon: 
+Design Question : A customer ordered the goods from amazon.com. 
+Amazon sends the notification to customer for their orders during the life-cycle of it 
+(from the time when order is placed to order getting successfully delivered). 
+Define the APIs and LLD of the Notification System (NS) which can be leveraged to notify the 
+customers at various stages of the package life-cycle.
+[9:26 AM, 7/22/2020] Geetha Amazon: Requirements Like : Place an order
+Package dispatched
+Out for delivery
+Delivered
+Return (refund/ exchange)
+
+?Packed
+?Cancelled
+?Delayed
+?Damaged
+?Re-Attempt
+?Refund
+?Could not be delivered
+?COD
+
+
+Order Tracking System for Amazon
+LLD
+
+public class AmamzonOrders{
+
+	public interface Obsever<T>{
+		
+		public void onChange(T obj);
+	}
+
+	public interface Subject<T>{
+
+
+		registerObserver()
+		notifyAllObserver()
+		deleteObserver()
+
+	}
+
+
+	public enum Orderstatus{
+		recevied("recevive"),
+		assigned,
+	}
+
+	class Order {
+
+		order(order id, expected time);
+		setstatus(); notifyobserver
+
+		implement :
+		registerObserver()
+		notifyobserver() observer.onchange();
+
+	}
+
+
+
+}
+
+
+
+
+
+
+[9:26 AM, 7/22/2020] Geetha Amazon: defined the interfaces for ->
+2.1 -> Notification data which can be used to enrich the for notification data, sanitation, validation of it
+2.2 -> Notification sender which can be used to send the notification via appropriate channels like SMS, emails
+Define Notification manager for managing the interaction on the notification across modules like Notification sender, Notification data.
+
+
+
+[9:26 AM, 7/22/2020] Geetha Amazon: Call Out assumptions, Ask clarifying questions and then only proceed ,
+ Can you let me know the high level design for this components?
+ caching techniques?What about Scale? What about your DB choice?
+
+
+
+[9:26 AM, 7/22/2020] Geetha Amazon: design parking Lot.
+
+
+
+[9:27 AM, 7/22/2020] Geetha Amazon: Design the cab aggregator service
+[9:27 AM, 7/22/2020] Geetha Amazon: About the area need to serve,
+book a cab
+finding driver
+see all available cab
+see estimated time
+reported
+profile creation for users
+receive request for rides by driver
+accept a ride by driver
+payment
+share your rides
+notifications
+see the trips Which DB will you use?
+
+[9:27 AM, 7/22/2020] Geetha Amazon: Design a system to copy large file (Tbs) to a cluster of machines.
+
+Q: How is user triggering the copy operation - Lets assume you have a UI app where they can provide 
+the source machine and file path. 
+ QQ: What are the pain points that you need to take care
+
+ Sure, you would use some sort of script,
+  since you don't want to do that manually. 
+  But instead of sending all the files from one server to all the others, 
+  you would start sending the file to k Servers. 
+  As soon as these k Servers received the file (let's say at time t),
+   they can start distributing the file too, so after approx.
+	time 2*t already k^2 servers have the file instead of 2*k in the original solution.
+	 After time 3*t already k^3 Servers have got the file... 
+	 You continue with that algorithm until every server has got it's file.
+
+To make the whole process yet a bit faster, you could also divide the file in chunks, 
+so that a server can start redistributing it before it has received the whole file
+ (you will end up with something like
+
+	
+[9:27 AM, 7/22/2020] Geetha Amazon: 
+Q: Design a system to search of similar web-pages in million of documents 
+given an input document.
+assumptions:
+1. Assume that all the documents are text based.
+2. End goal is to return top 10 similar web-pages.
+3. What is the similarity criteria - you need to define it based on your thought process.
+[9:28 AM, 7/22/2020] Geetha Amazon: Ask clarifying questions to resolve the ambiguity
+Breakup down the problem
+Dive Deep on implementation
+Scaling of the design
+
+HLD Expectations: 
+Requirement Gathering and defining system constraints
+Identify system components
+Associating and coupling Components
+Design Considerations like fault tolerance, scalability, concurrency control, etc
+Component diagram - Explain responsibility of each component
+
+LLD Expectations: 
+Candidate should be comfortable in class diagram and DB table schema implementation
+Should know- How should the system handle failures, what can be done to prevent them
+Identify Entities, Defining Entities and association
+Coupling, Extendibility, and System Maintainability
+Touch Base on Design Principles and Design Patterns and OOPS concepts
+[9:28 AM, 7/22/2020] Geetha Amazon: Design questions(LLD):
+   1. Is the design capable of solving given problem?
+      a. Does it meet functional and non-functional requirements?
+   2. What design principles are followed in the proposed design? 
+      a. Does the proposed solution by candidate passes SOLID test?
+      b. Is there any design pattern that candidate has applied?
+      c. How the solution will scale horizontally when traffic/data increases 10x, 50x and 100x?
+    3. Ask candidate to implement one key method/function/APIs from his/her design and check the above criteria again.
+    4. Is candidate following single responsibility for each class?
+    5. How will candidate plan to test the system?
+
+
+
+
+Q. How to process largef ile with small RAM 
+The most relevant concepts are Sharding and MapReduce.
+ These are two related techniques that allow a program
+to process arbitrarily large amounts of data using a finite amount of computing resources.
+ The basic idea is to first break a problem down into independently computable chunks anf send 
+ each chunk to a separate computer or the same computer repeatedly,
+  as in this question. This is the Map. 
+  
+  Then you combine (Reduce) the results. 
+  Map and Reduce are separate functions.
+   One of them may be trivial.
+	Each stage can be recursive, and recursive functions are generally easy to turn into MapReduce jobs.
+	 Not all functions are easily converted into MapReduce jobs - in particular, 
+	 a function that performs repeated calculations where each depends on the previous one cannot be easily distributed (though if that function is run on a large dataset, the individual calculations can be distributed). 
+	 Also, MapReduce doesn't overcome physics: you're still limited by your total capacity. 
+	 You can't compute an answer that has more bits than you have storage across all systems, for example.
+
+For example, in a merge sort of a large data set, the Map function is to merge sort two halves of the input, 
+and the Reduce function is to combine these sorted halves in order. 
+Hashtables are very easily sharded: distribute the table over N computers such that computer 1 has positions 0–9 of the table, 
+computer 2 has positions 10–19, etc. Then when you hash any input, you can figure out which computer it's on and 
+query that computer's hashtables. You can also do the same thing locally with memory and disk, 
+or in general with any separate storage media.
+
+This is how Google is able to search the entire internet in milliseconds.
+ The index is basically just a hashtable distributed over many, many computers.
+
+
+
+
+
+
+ Movie Rating Aggregator Service 
+ Chess Game
+
+
+1 Problem Statement
+
+2. Functional 
+
+3. Non-Functional 
+
+ minimum latency 
+ aximum throughput 
+ highly avaiable or consitent?
+ target audience or general audience?
+ across globe or certain regions ?
+
+
+ 4. Data Capacity 
+
+
+
+ 5. Data Model 
+
+
+ 6. Components & Design & Workflow 
+
+
+

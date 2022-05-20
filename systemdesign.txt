@@ -1,0 +1,228 @@
+
+Awesome stuff on Ssytem Design
+https://github.com/donnemartin/system-design-primer
+
+
+https://tianpan.co/notes/2016-02-13-crack-the-system-design-interview
+//https://tianpan.co/notes/2016-02-13-crack-the-system-design-interview
+
+Michael Videos , tushar talks,  book Martin klepmann 
+https://www.youtube.com/watch?v=FU4WlwfS3G0&feature=youtu.be
+
+Few System Design Problems to solve :
+
+1: Design an elevator system 
+2: Design a rate limiting system 
+3: Design a photo hosting system / Instagram.
+4: Design a distributed cache 
+5: Design a Tiny URL 
+6: Design a Web search engine 
+7: Design Youtube/Netfilx video hosting
+8: Design a Facebook style news feed 
+9: Design a Twitter style news feed 
+10: Design a WhatsApp Messaging Service
+11: Design Auto-complete system
+12: Design SplitWise
+13: Design Uber or Food Delivery system.
+14: Design a Recommendation System.
+15: Design an e-commerce System.
+
+Aim : 10K or 100K request per second.
+
+
+//Architectural Design
+
+Client   Service1    Database
+		 Servce 2   
+
+//Database Properties
+		 ACID propeties of DB 
+		 tradeoff things are Consistency and avaiabailty
+		 
+		 In SQL/ relational db , It ensures consisitency (any read will have the latest write)
+		 but availabiltty can be Slow
+		 
+		 In NoSQL DB , its maintains availabilty more and gives result as and when available.
+		 However, eventually maintains consistency.		
+
+
+Q. How can u fetch data from DB with large large data?
+
+1. Optimize the queries 
+2. Indexing :
+
+Create Index abc on Employee(first_name);
+
+Now , it will index the data using first name(using logic aplhate or numeric)
+
+, if we use first name filter  in query , query will be really fast 
+
+In NoSQL DB , indexes can be (first_name+last_name+%)- dynamic index created accrding to filter used in query.Client
+
+
+3. //Database Sharding Partitioning
+sharding means partitioning the data using a key attribute of data and distributing that data across 
+multiple servers 
+so that, the data request can be handled quickly and efficiently.Client
+Ex: Like pizza is cut into 6 slice where eac server will handle the slice.
+Horizontal partitioning :  When we partition db data using a key attribute(uniqe amoong records)
+Vertical Partitioning :  When we partition data uisng columns combo
+
+ //Partitioning strategies
+1. By Key Range - Indexing
+2. By  Hash of Key - [ Consistent hashing for distributed scalable system]
+			Advantage over modulo hashing which is quite static and expensve if servers add/remove 
+
+		Consistent vs modulo 
+		https://www.toptal.com/big-data/consistent-hashing	
+
+	Consistent Hashing:  Headers, for Key in our data, we calculate Hash such that 
+	the result of hash function will lie from X-Y range only 
+	Hence , the hashing becomes consistent. 
+	Now 
+
+	>> Now, from X-Y range, diffrenet subset ranges are assigned to doffernet servers, hence handle the data access.apply
+	
+	
+	1. Lets say a request Key A , Hash - 22 , serevr X will be the one to Process acc to hash. 
+	Now, key A is associated iwth server A
+	2. Key B , C , D comes and associate with Server P, Q ,X 
+	
+	X server-  keys A, D
+	P server - B
+	Q server - C
+
+	Now, whenever key A request come, it can enetrtatin by server X in very fast Time. 
+	>>This is how data scaling works or dealt with large storage of data. 
+
+
+	Problems
+	1. Hotspots [ When request keep coming at same srever, the hotspot can go under temp failure]
+	SourceBuffer, we keep virtual copies of data at each server, so no data loss.
+
+	But lets says serevr x go down , then all its keys are now associate to server P 
+
+	So, here, no rehashing will require cz all request coming to X will automatclaly now be covered by P. 
+
+>>above sttaement is advantage over modulo hash [where if server add/delete  , rehashing of keys require cz hashfunction= hash modulo no. of srevers]
+
+
+//Cassandra Data Modelling
+These are the two high-level goals for your data model:
+
+1. Spread data evenly around the cluster
+2. Minimize the number of partitions  from which read happens
+
+
+
+
+
+CAP Theorem
+Consistency Availabilty Partitioning Theorem
+
+1. Design TINY URL
+
+
+
+2. Design a notification Service
+
+Notification System:
+
+Ecommerce:
+
+How person  triggers notification?
+Whom you need to send the notifications?
+How you send the notifications?
+  
+Two types of Notifications:
+Mass notifications - Campaigns
+Based on user actions.
+  
+Dashboard -> Creates a Campaign ->
+Camapign will be having a criteria
+  
+Camapaign Management
+Data Service -> Black Box
+Communication Engine
+Notification Service
+
+CM -> Communication Engine
+
+10,000 messages per minute
+100,000 messages 
+
+Stream of users
+
+Why not use Mysql as messaging queue:
+- Writes in Mysql ARE SLOw
+- Slow becuase of transactions
+
+notifications -> s1, s2, s3
+
+Notifcation -> 
+  
+p1  m1, m2, m4
+p2  m3, m5
+p3
+p4
+
+m1 ,m2, m3......1 Million p1, p1, p1 p1
+
+p1, p2, p3
+
+Notifcation service -> Normal notifications, priority notif.
+  
+  
+
+  
+  
+  3. Desing a news feed Servce
+
+Sharing post
+Followee
+follower
+Text post
+
+
+Post creation
+View Feed
+
+posts
+
+
+post-service -> {userId:, postId, content}
+post-service-consumer -> Update in DB
+Auth-service ->
+
+feed-service -> it will serve the feed
+feed-service-consumer -> Generation feed (Redis)
+
+
+POST Creation flow:
+Authentication:
+Message queue
+
+MySql Demerits
+1. Expensive Data schema modification
+2. expensive join operations
+
+
+MongoDB 
+
+Fetching the feed
+
+>> Whenever user onboard, if we fetch all data from db 
+Demerits: 
+issue in high scale system
+
+
+Alternative:
+
+Fan - out
+
+Redis - cache system [In-memory]
+Memcache 
+
+
+DB - Hdd
+s1 s2 s3 s4
